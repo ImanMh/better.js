@@ -5,7 +5,7 @@
  * 
  * @class detect globals
  */
-var GlobalDetector	= function(){
+var GlobalDetector	= function(assertDate){
 	// take the namespace for global
 	var inBrowser 	= typeof(window) !== 'undefined'	? true : false
 	var _global	= inBrowser ?  window :  global;
@@ -32,7 +32,8 @@ var GlobalDetector	= function(){
 	this.start	= function(onChange, period){
 		period	= period	|| 1000;
 		onChange= onChange	|| function(newProperty){
-			var str	= new Date + " -- Warning Global Detected!!! "
+			var str = '';
+			assertDate ? str += new Date + " -- Warning Global Detected!!! " :
 			str	+= (inBrowser ? 'window': 'global');
 			str	+= "['"+newProperty+"'] === " + _global[newProperty];
 			console.warn(str)
